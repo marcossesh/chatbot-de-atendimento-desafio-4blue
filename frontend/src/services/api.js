@@ -35,7 +35,15 @@ export const sendMessage = async (userId, content) => {
 export const getUserMessages = async (userId) => {
     try {
         const response = await apiClient.get(`/messages/?user_id=${userId}`);
-        return Array.isArray(response.data) ? response.data : response.data.results || [];
+        let data = Array.isArray(response.data) ? response.data : response.data.results || [];
+        
+        // Garantir que todas as mensagens têm message_type
+        data = data.map(msg => ({
+            ...msg,
+            message_type: msg.message_type || 'resposta' // fallback para resposta se não tiver type
+        }));
+        
+        return data;
     } catch (error) {
         console.error('Erro ao obter mensagens do usuário:', error);
         throw error;

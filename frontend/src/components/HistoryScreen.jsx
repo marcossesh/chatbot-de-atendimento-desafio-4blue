@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getUserMessages } from '../services/api';
-import { getDisplayName } from '../utils/helpers';
+import { groupMessagesByDate } from '../utils/helpers';
 import './styles/HistoryScreen.css';
 
 export const HistoryScreen = ({ activeUser, activeUserId }) => {
@@ -45,15 +45,30 @@ export const HistoryScreen = ({ activeUser, activeUserId }) => {
                 </div>
             ) : (
                 <div className="history-messages">
-                    {messages.map((msg, index) => (
-                        <div key={index} className={`history-message ${msg.message_type}`}>
-                            <span className="message-type">
-                                {getDisplayName(msg.message_type)}
-                            </span>
-                            <p className="message-content">{msg.content}</p>
-                            <p className="message-timestamp">
-                                {new Date(msg.created_at).toLocaleString('pt-BR')}
-                            </p>
+                    {Object.entries(groupMessagesByDate(messages)).reverse().map(([dateLabel, msgs]) => (
+                        <div key={dateLabel}>
+                            <div className="date-divider">
+                                <span className="date-label">{dateLabel}</span>
+                            </div>
+                            {msgs.reverse().map((msg, index) => {
+                                const isUserMessage = msg.message_type === 'pergunta';
+                                return (
+                                    <div 
+                                        key={`${dateLabel}-${index}`} 
+                                        className={`history-message ${isUserMessage ? 'user' : 'bot'}`}
+                                    >
+                                        <div className="message-bubble">
+                                            <div className="message-label">
+                                                {isUserMessage ? 'Você' : 'Chatbot'}
+                                            </div>
+                                            <p className="message-content">{msg.content}</p>
+                                            <p className="message-timestamp">
+                                                {new Date(msg.created_at).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                                            </p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     ))}
                 </div>

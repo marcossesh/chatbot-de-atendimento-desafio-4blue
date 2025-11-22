@@ -1,18 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { sendMessage } from '../services/api';
-import { getDisplayName } from '../utils/helpers';
 import './styles/ChatScreen.css';
 
 export const ChatScreen = ({ activeUser, activeUserId }) => {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
+    const messagesEndRef = useRef(null);
 
-    // Limpar mensagens quando o usuário muda
     useEffect(() => {
         setMessages([]);
         setInputValue('');
     }, [activeUserId]);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
 
     const handleSendMessage = async () => {
         if (!inputValue.trim()) return;
@@ -41,6 +44,13 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
         }
     };
 
+    const suggestedMessages = [
+        'Olá',
+        'Como você funciona?',
+        'Preciso de ajuda',
+        'Falar com atendente'
+    ];
+
     return (
         <div className="chat-screen">
             <div className="chat-header">
@@ -53,23 +63,40 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
                     <div className="empty-state">
                         <div className="empty-state-icon">💬</div>
                         <p>Nenhuma mensagem ainda. Comece uma conversa!</p>
+                        <div className="suggested-messages">
+                            {suggestedMessages.map((suggestion, index) => (
+                                <button
+                                    key={index}
+                                    className="suggestion-chip"
+                                    onClick={() => {
+                                        setInputValue(suggestion);
+                                    }}
+                                    disabled={loading}
+                                >
+                                    {suggestion}
+                                </button>
+                            ))}
+                        </div>
                     </div>
                 ) : (
-                    messages.map((msg, index) => (
-                        <div key={index} className={`message ${msg.message_type === 'pergunta' ? 'user' : 'bot'}`}>
-                            <div className="message-bubble">
-                                <div className="message-label">
-                                    {getDisplayName(msg.message_type)}
+                    messages.map((msg, index) => {
+                        const isUserMessage = msg.message_type === 'pergunta';
+                        return (
+                            <div key={index} className={`message ${isUserMessage ? 'user' : 'bot'}`}>
+                                <div className="message-bubble">
+                                    <div className="message-label">
+                                        {isUserMessage ? 'Você' : 'Chatbot'}
+                                    </div>
+                                    <p>{msg.content}</p>
                                 </div>
-                                <p>{msg.content}</p>
                             </div>
-                        </div>
-                    ))
+                        );
+                    })
                 )}
                 {loading && (
                     <div className="message bot">
                         <div className="message-bubble">
-                            <div className="loading-dots">
+                            <div className="typing-indicator">
                                 <span></span>
                                 <span></span>
                                 <span></span>
@@ -77,6 +104,7 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
                         </div>
                     </div>
                 )}
+                <div ref={messagesEndRef} />
             </div>
 
             <div className="input-container">

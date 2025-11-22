@@ -16,7 +16,7 @@ class User(models.Model):
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='messages')
     content = models.TextField()
-    message_type = models.CharField(max_length=50, choices=MESSAGE_TYPE_CHOICES)
+    message_type = models.CharField(max_length=50, choices=MESSAGE_TYPE_CHOICES, default='resposta')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
