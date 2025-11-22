@@ -25,8 +25,7 @@ export const sendMessage = async (userId, content) => {
             user_id: userId,
             content: content
         });
-        // Garantir que sempre retorna um array
-        return Array.isArray(response.data) ? response.data : [response.data];
+        return response.data;
     } catch (error) {
         console.error('Erro ao enviar mensagem:', error);
         throw error;

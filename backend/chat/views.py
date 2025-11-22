@@ -25,16 +25,6 @@ class MessageViewSet(viewsets.ModelViewSet):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
-    def perform_create(self, serializer):
-        pergunta = serializer.save()
-
-        resposta_texto = get_mocked_response(pergunta.user.username)
-        Message.objects.create(
-            user=pergunta.user,
-            content=resposta_texto,
-            message_type='resposta'
-        )
     
     def create(self, request, *args, **kwargs):
         request.data['message_type'] = 'pergunta'

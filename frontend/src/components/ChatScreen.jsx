@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { sendMessage } from '../services/api';
 import { getDisplayName } from '../utils/helpers';
 import './styles/ChatScreen.css';
@@ -8,16 +8,20 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
 
+    // Limpar mensagens quando o usuário muda
+    useEffect(() => {
+        setMessages([]);
+        setInputValue('');
+    }, [activeUserId]);
+
     const handleSendMessage = async () => {
         if (!inputValue.trim()) return;
         setLoading(true);
         try {
-            const newMessage = await sendMessage(activeUserId, inputValue);
-            // newMessage pode ser um array [pergunta, resposta] ou um objeto
-            const messagesToAdd = Array.isArray(newMessage) ? newMessage : [newMessage];
+            const newMessages = await sendMessage(activeUserId, inputValue);
             setMessages([
                 ...messages, 
-                ...messagesToAdd
+                ...newMessages
             ]);
             setInputValue('');
         } catch (error) {
