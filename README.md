@@ -96,11 +96,8 @@ cd chatbot-de-atendimento-desafio-4blue
 - 2.1 Criar e ativar ambiente virtual
 
 ```
-
 cd backend
-
 python -m venv venv
-
 ```
 ## No Windows
 ```
@@ -152,6 +149,49 @@ Crie um arquivo .env na raiz do frontend/:
 ```
 REACT_APP_API_BASE_URL=http://localhost:8000/api
 ```
+## 🧪 Testando a Aplicação
+
+### 1. Chat Básico
+
+Abra http://localhost:3000
+
+Selecione "Usuário A"
+
+Digite "Olá" e clique "Enviar"
+
+Veja a resposta aparecer
+
+Troque para "Usuário B" e repita
+
+As mensagens não se misturam ✅
+
+  
+
+### 2. Histórico
+
+Clique em "Histórico"
+
+Veja todas as mensagens do usuário ativo
+
+Troque de usuário
+
+O histórico atualiza automaticamente ✅
+
+  
+
+### 3. Separação de Dados
+
+
+Usuário A envia 3 mensagens
+
+Troque para Usuário B
+
+Chat está vazio (novo usuário) ✅
+
+Volte para A
+
+As 3 mensagens retornam ✅
+
 # 📁 Estrutura do Projeto
 
   
@@ -467,50 +507,6 @@ Frontend (React)
 
 12. HistoryScreen exibe histórico filtrado
 ```
-## 🧪 Testando a Aplicação
-
-### 1. Chat Básico
-
-Abra http://localhost:3000
-
-Selecione "Usuário A"
-
-Digite "Olá" e clique "Enviar"
-
-Veja a resposta aparecer
-
-Troque para "Usuário B" e repita
-
-As mensagens não se misturam ✅
-
-  
-
-### 2. Histórico
-
-Clique em "Histórico"
-
-Veja todas as mensagens do usuário ativo
-
-Troque de usuário
-
-O histórico atualiza automaticamente ✅
-
-  
-
-### 3. Separação de Dados
-
-
-Usuário A envia 3 mensagens
-
-Troque para Usuário B
-
-Chat está vazio (novo usuário) ✅
-
-Volte para A
-
-As 3 mensagens retornam ✅
-
-  
 
 ## 📚 Endpoints da API
 
