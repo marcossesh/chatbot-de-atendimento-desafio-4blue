@@ -25,7 +25,8 @@ export const sendMessage = async (userId, content) => {
             user_id: userId,
             content: content
         });
-        return response.data;
+        // Garantir que sempre retorna um array
+        return Array.isArray(response.data) ? response.data : [response.data];
     } catch (error) {
         console.error('Erro ao enviar mensagem:', error);
         throw error;
@@ -35,7 +36,7 @@ export const sendMessage = async (userId, content) => {
 export const getUserMessages = async (userId) => {
     try {
         const response = await apiClient.get(`/messages/?user_id=${userId}`);
-        return response.data;
+        return Array.isArray(response.data) ? response.data : response.data.results || [];
     } catch (error) {
         console.error('Erro ao obter mensagens do usuário:', error);
         throw error;

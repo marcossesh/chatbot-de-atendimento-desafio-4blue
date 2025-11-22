@@ -13,10 +13,11 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
         setLoading(true);
         try {
             const newMessage = await sendMessage(activeUserId, inputValue);
+            // newMessage pode ser um array [pergunta, resposta] ou um objeto
+            const messagesToAdd = Array.isArray(newMessage) ? newMessage : [newMessage];
             setMessages([
                 ...messages, 
-                newMessage.pergunta, 
-                newMessage.resposta
+                ...messagesToAdd
             ]);
             setInputValue('');
         } catch (error) {

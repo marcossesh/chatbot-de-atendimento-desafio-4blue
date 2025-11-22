@@ -10,10 +10,9 @@ class UserSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     user = serializers.StringRelatedField(read_only=True)
     user_id = serializers.IntegerField(write_only=True)
+    message_type = serializers.CharField(read_only=True)  # ← Automático
     
     class Meta:
         model = Message
         fields = ['id', 'user', 'user_id', 'content', 'message_type', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'user', 'created_at', 'updated_at']
-
-
+        read_only_fields = ['id', 'user', 'created_at', 'updated_at', 'message_type']
