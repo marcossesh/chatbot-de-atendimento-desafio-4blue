@@ -6,6 +6,25 @@ import './styles/HistoryScreen.css';
 export const HistoryScreen = ({ activeUser, activeUserId }) => {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(false);
+    const messagesEndRef = useRef(null);
+    const messagesContainerRef = useRef(null);
+    const isAutoScrollEnabledRef = useRef(true);
+
+    const handleScroll = () => {
+        if (!messagesContainerRef.current) return;
+
+        const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
+        
+        const isNearBottom = scrollHeight - (scrollTop + clientHeight) < 50;
+        
+        isAutoScrollEnabledRef.current = isNearBottom;
+    };
+
+    const scrollToBottom = () => {
+        if (isAutoScrollEnabledRef.current && messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
 
     useEffect(() => {
         const fetchMessages = async () => {
@@ -13,6 +32,10 @@ export const HistoryScreen = ({ activeUser, activeUserId }) => {
             try {
                 const userMessages = await getUserMessages(activeUserId);
                 setMessages(userMessages);
+                
+                isAutoScrollEnabledRef.current = true;
+                
+                setTimeout(scrollToBottom, 100);
             } catch (error) {
                 console.error('Erro ao buscar mensagens:', error);
             } finally {
@@ -24,6 +47,10 @@ export const HistoryScreen = ({ activeUser, activeUserId }) => {
             fetchMessages();
         }
     }, [activeUserId]);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     return (
         <div className="history-screen">
@@ -44,7 +71,11 @@ export const HistoryScreen = ({ activeUser, activeUserId }) => {
                     <p className="empty-subtext">Comece uma conversa na aba Chat</p>
                 </div>
             ) : (
-                <div className="history-messages">
+                <div 
+                    className="history-messages"
+                    ref={messagesContainerRef}
+                    onScroll={handleScroll}
+                >
                     {Object.entries(groupMessagesByDate(messages)).reverse().map(([dateLabel, msgs]) => (
                         <div key={dateLabel}>
                             <div className="date-divider">
@@ -71,6 +102,7 @@ export const HistoryScreen = ({ activeUser, activeUserId }) => {
                             })}
                         </div>
                     ))}
+                    <div ref={messagesEndRef} />
                 </div>
             )}
         </div>

@@ -59,8 +59,28 @@
 
 .history-message {
     display: flex;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
     animation: fadeIn 0.3s ease-in-out;
+}
+
+.history-message:first-child {
+    margin-bottom: 12px;
+}
+
+.history-message.user:not(:last-child) .message-bubble {
+    border-radius: 12px 12px 4px 12px;
+}
+
+.history-message.user:last-child .message-bubble {
+    border-radius: 12px 12px 4px 12px;
+}
+
+.history-message.bot:not(:last-child) .message-bubble {
+    border-radius: 12px 12px 12px 4px;
+}
+
+.history-message.bot:last-child .message-bubble {
+    border-radius: 12px 12px 12px 4px;
 }
 
 .history-message.user {
@@ -120,6 +140,10 @@
     margin-top: 6px;
     font-size: 11px;
     opacity: 0.7;
+    
+    text-align: right;
+    display: block;
+    margin-left: auto;
 }
 
 .loading-state {
@@ -184,4 +208,29 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* ===== SCROLLBAR CUSTOMIZADA ===== */
+.history-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.history-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.history-messages::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.history-messages::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Firefox */
+.history-messages {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
 }
