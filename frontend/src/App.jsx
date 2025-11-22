@@ -2,16 +2,17 @@ import { useState } from 'react';
 import { UserSelector } from './components/UserSelector';
 import { ChatScreen } from './components/ChatScreen';
 import HistoryScreen from './components/HistoryScreen';
+import './styles/App.css';
 
 export const App = () => {
-    const [activeUser, setActiveUser] = useState('A'); // "A" ou "B"
-    const [activeUserId, setActiveUserId] = useState(1); // 1 ou 2
-    const [currentScreen, setCurrentScreen] = useState('chat'); // "chat" ou "history"
+    const [activeUser, setActiveUser] = useState('A');
+    const [activeUserId, setActiveUserId] = useState(1);
+    const [currentScreen, setCurrentScreen] = useState('chat');
 
     const handleUserChange = (user) => {
         setActiveUser(user);
         setActiveUserId(user === 'A' ? 1 : 2);
-        setCurrentScreen('chat'); // Reseta para chat ao mudar usuário
+        setCurrentScreen('chat');
     };
 
     const handleScreenChange = (screen) => {
@@ -19,39 +20,52 @@ export const App = () => {
     };
 
     return (
-        <div>
-            <h1>Chatbot de Atendimento</h1>
-            <UserSelector 
-                activeUser={activeUser} 
-                onUserChange={handleUserChange} 
-            />
-            <div>
-                <button 
-                    onClick={() => handleScreenChange('chat')}
-                    disabled={currentScreen === 'chat'}
-                >
-                    Chat
-                </button>
-                <button 
-                    onClick={() => handleScreenChange('history')}
-                    disabled={currentScreen === 'history'}
-                >
-                    Histórico
-                </button>
-            </div>
-            <div>
-                {currentScreen === 'chat' ? (
-                    <ChatScreen 
-                        activeUser={activeUser} 
-                        activeUserId={activeUserId} 
-                    />
-                ) : (
-                    <HistoryScreen 
-                        activeUser={activeUser} 
-                        activeUserId={activeUserId} 
-                    />
-                )}
-            </div>
+        <div className="App">
+            <header className="app-header">
+                <h1>Chatbot de Atendimento</h1>
+            </header>
+
+            <aside className="sidebar">
+                <h2>Seletor de Usuário</h2>
+                <UserSelector 
+                    activeUser={activeUser} 
+                    onUserChange={handleUserChange} 
+                />
+                
+                <h2 style={{ marginTop: '32px' }}>Navegação</h2>
+                <div className="nav-tabs">
+                    <button 
+                        className="tab-button"
+                        onClick={() => handleScreenChange('chat')}
+                        disabled={currentScreen === 'chat'}
+                    >
+                        Chat
+                    </button>
+                    <button 
+                        className="tab-button"
+                        onClick={() => handleScreenChange('history')}
+                        disabled={currentScreen === 'history'}
+                    >
+                        Histórico
+                    </button>
+                </div>
+            </aside>
+
+            <main className="main-content">
+                <div className="content-container">
+                    {currentScreen === 'chat' ? (
+                        <ChatScreen 
+                            activeUser={activeUser} 
+                            activeUserId={activeUserId} 
+                        />
+                    ) : (
+                        <HistoryScreen 
+                            activeUser={activeUser} 
+                            activeUserId={activeUserId} 
+                        />
+                    )}
+                </div>
+            </main>
         </div>
     );
 };

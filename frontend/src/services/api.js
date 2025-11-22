@@ -1,10 +1,17 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000/api';
+
+const apiClient = axios.create({
+    baseURL: API_BASE_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
 
 export const getUsers = async () => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/users/`);
+        const response = await apiClient.get('/users/');
         return response.data;
     } catch (error) {
         console.error('Erro ao obter usuários:', error);
@@ -14,7 +21,7 @@ export const getUsers = async () => {
 
 export const sendMessage = async (userId, content) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/messages/`, {
+        const response = await apiClient.post('/messages/', {
             user_id: userId,
             content: content
         });
@@ -27,7 +34,7 @@ export const sendMessage = async (userId, content) => {
 
 export const getUserMessages = async (userId) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/messages/?user_id=${userId}`);
+        const response = await apiClient.get(`/messages/?user_id=${userId}`);
         return response.data;
     } catch (error) {
         console.error('Erro ao obter mensagens do usuário:', error);

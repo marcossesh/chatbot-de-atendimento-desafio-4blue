@@ -1,15 +1,17 @@
+import './styles/UserSelector.css';
+
 export const UserSelector = ({ activeUser, onUserChange }) => {
     return (
-        <div>
+        <div className="user-selector">
             <button 
+                className={`user-button ${activeUser === 'A' ? 'active' : ''}`}
                 onClick={() => onUserChange('A')}
-                style={{ fontWeight: activeUser === 'A' ? 'bold' : 'normal' }}
             >
                 Usuário A
             </button>
             <button 
+                className={`user-button ${activeUser === 'B' ? 'active' : ''}`}
                 onClick={() => onUserChange('B')}
-                style={{ fontWeight: activeUser === 'B' ? 'bold' : 'normal' }}
             >
                 Usuário B
             </button>
