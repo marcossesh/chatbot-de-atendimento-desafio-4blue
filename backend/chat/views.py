@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.response import Response
 from chat.services import get_mocked_response
 from .models import User, Message
 from .serializer import UserSerializer, MessageSerializer
-from rest_framework.response import Response
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -12,6 +12,19 @@ class UserViewSet(viewsets.ModelViewSet):
 class MessageViewSet(viewsets.ModelViewSet):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
+    pagination_class = None  # Desabilitar paginação
+
+    def get_queryset(self):
+        queryset = Message.objects.all().order_by('-created_at')
+        user_id = self.request.query_params.get('user_id')
+        if user_id:
+            queryset = queryset.filter(user_id=user_id)
+        return queryset
+    
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def perform_create(self, serializer):
         pergunta = serializer.save()
@@ -40,7 +53,3 @@ class MessageViewSet(viewsets.ModelViewSet):
         messages = [pergunta, resposta]
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data)
-        user_id = self.request.query_params.get('user_id')
-        if user_id:
-            return Message.objects.filter(user_id=user_id).order_by('-created_at')
-        return super().get_queryset()
