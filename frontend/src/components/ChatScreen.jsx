@@ -21,7 +21,6 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
     }, [messages]);
 
     const handleSendMessage = async () => {
-        // Validação: verifica se há apenas espaços em branco
         const trimmedInput = inputValue.trim();
         
         if (!trimmedInput) {
@@ -39,7 +38,8 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
             setInputValue('');
         } catch (error) {
             console.error('Erro ao enviar mensagem:', error);
-            showToast('Erro ao enviar mensagem. Tente novamente.', 'error');
+            // Usar mensagem de erro específica do backend
+            showToast(error.message, 'error');
         } finally {
             setLoading(false);
         }

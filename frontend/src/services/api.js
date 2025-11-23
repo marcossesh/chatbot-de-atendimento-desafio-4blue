@@ -28,7 +28,13 @@ export const sendMessage = async (userId, content) => {
         return response.data;
     } catch (error) {
         console.error('Erro ao enviar mensagem:', error);
-        throw error;
+        // Extrair mensagem de erro específica do backend
+        const errorMessage = error.response?.data?.content?.[0] || 
+                            error.response?.data?.detail || 
+                            'Erro ao enviar mensagem. Tente novamente.';
+        const customError = new Error(errorMessage);
+        customError.status = error.response?.status;
+        throw customError;
     }
 };
 
