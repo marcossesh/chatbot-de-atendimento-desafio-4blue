@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { sendMessage } from '../services/api';
+import { useToast } from '../hooks/useToast';
+import { Toast } from './Toast';
 import './styles/ChatScreen.css';
 
 export const ChatScreen = ({ activeUser, activeUserId }) => {
@@ -7,6 +9,7 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
     const [inputValue, setInputValue] = useState('');
     const [loading, setLoading] = useState(false);
     const messagesEndRef = useRef(null);
+    const { toast, showToast } = useToast();
 
     useEffect(() => {
         setMessages([]);
@@ -18,10 +21,17 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
     }, [messages]);
 
     const handleSendMessage = async () => {
-        if (!inputValue.trim()) return;
+        // Validação: verifica se há apenas espaços em branco
+        const trimmedInput = inputValue.trim();
+        
+        if (!trimmedInput) {
+            showToast('Por favor, digite uma mensagem', 'warning');
+            return;
+        }
+
         setLoading(true);
         try {
-            const newMessages = await sendMessage(activeUserId, inputValue);
+            const newMessages = await sendMessage(activeUserId, trimmedInput);
             setMessages([
                 ...messages, 
                 ...newMessages
@@ -29,6 +39,7 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
             setInputValue('');
         } catch (error) {
             console.error('Erro ao enviar mensagem:', error);
+            showToast('Erro ao enviar mensagem. Tente novamente.', 'error');
         } finally {
             setLoading(false);
         }
@@ -53,6 +64,8 @@ export const ChatScreen = ({ activeUser, activeUserId }) => {
 
     return (
         <div className="chat-screen">
+            <Toast message={toast?.message} type={toast?.type} />
+            
             <div className="chat-header">
                 <h2>Chat - Usuário {activeUser}</h2>
                 <p>Envie sua mensagem abaixo</p>
