@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from chat.services import get_mocked_response
 from .models import User, Message
@@ -43,4 +43,4 @@ class MessageViewSet(viewsets.ModelViewSet):
         
         messages = [pergunta, resposta]
         serializer = MessageSerializer(messages, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
