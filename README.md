@@ -647,23 +647,6 @@ npm test                    # Rodar novamente
 
 ---
 
-## Commits Principais
-
-```
-chore: initial project setup and configuration
-chore: backend initial config
-feat: models and serializer created
-feat: backend tested and frontend created
-feat: styling with CSS
-feat: toast notifications and validation
-feat: sanitization and XSS prevention
-feat: responsive mobile design
-test: backend tests with pytest
-test: frontend tests with jest
-```
-
----
-
 ## Autor
 
 Marcos Vinicius Ramos da Luz - GitHub [@marcossesh](https://github.com/marcossesh)
@@ -692,4 +675,4 @@ Este projeto é parte de um desafio técnico da 4Blue.
 
 ---
 
-**Projeto 100% funcional, testado e pronto para entrega** 
+**Projeto 100% funcional, testado e pronto para entrega**
