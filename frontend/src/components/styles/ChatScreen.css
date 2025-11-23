@@ -358,3 +358,139 @@
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
 }
+
+/* ===== RESPONSIVIDADE MOBILE ===== */
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+  .message-bubble {
+    max-width: 80%;
+  }
+}
+
+/* Tablets pequenos / Landscape (480px - 768px) */
+@media (max-width: 768px) {
+  .input-container {
+    flex-direction: row;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .input-container input {
+    padding: 10px 12px;
+    font-size: 16px; /* Evita zoom em iOS */
+    border-radius: 20px;
+  }
+
+  .send-button {
+    padding: 8px 16px;
+    font-size: 13px;
+    min-width: 80px;
+    height: 40px;
+  }
+
+  .message-bubble {
+    max-width: 85%;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .message {
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+}
+
+/* Smartphones (até 480px) */
+@media (max-width: 480px) {
+  .chat-header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .chat-header h2 {
+    font-size: 18px;
+  }
+
+  .chat-header p {
+    font-size: 12px;
+  }
+
+  .messages-container {
+    margin-bottom: 16px;
+    gap: 10px;
+  }
+
+  .input-container {
+    flex-direction: row;
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .input-container input {
+    padding: 10px 12px;
+    font-size: 16px; /* Crucial: evita zoom em iOS */
+    border-radius: 20px;
+  }
+
+  .send-button {
+    padding: 8px 12px;
+    font-size: 12px;
+    min-width: 70px;
+    height: 40px;
+    font-weight: 600;
+  }
+
+  .message-bubble {
+    max-width: 90%;
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .message {
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .message-label {
+    font-size: 11px;
+    margin-bottom: 2px;
+  }
+
+  .empty-state {
+    gap: 16px;
+  }
+
+  .empty-state-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+
+  .empty-state p {
+    font-size: 13px;
+  }
+
+  .suggested-messages {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .suggestion-chip {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .send-button {
+    min-width: 60px;
+    padding: 8px 8px;
+  }
+
+  .input-container input {
+    padding: 8px 10px;
+    font-size: 15px;
+  }
+}

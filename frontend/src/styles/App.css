@@ -114,7 +114,7 @@ body {
   }
 }
 
-/* ===== SECÇÃO DE NAVEGAÇÃO (TAB) ===== */
+/* ===== SEÇÃO DE NAVEGAÇÃO (TAB) ===== */
 .nav-tabs {
   display: flex;
   gap: 12px;
@@ -178,23 +178,200 @@ body {
 }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
+
+/* Tablets grandes (até 1200px) */
+@media (max-width: 1200px) {
   .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    top: 0;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
+    width: 240px;
   }
 
   .main-content {
-    margin-left: 0;
-    width: 100%;
-    margin-top: 0;
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 20px;
+  }
+
+  .app-header h1 {
+    font-size: 22px;
+  }
+
+  .content-container {
+    padding: 20px;
+  }
+}
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 220px;
+    padding: 16px;
+  }
+
+  .main-content {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+    padding: 16px;
+  }
+
+  .app-header {
+    padding: 0 16px;
+  }
+
+  .app-header h1 {
+    font-size: 20px;
+  }
+
+  .content-container {
+    padding: 16px;
+    min-height: 300px;
+  }
+}
+
+/* Tablets pequenos / Landscape (481px - 768px) */
+@media (max-width: 768px) {
+  .app-header {
+    height: 64px;
+    padding: 0 16px;
   }
 
   .app-header h1 {
     font-size: 18px;
+  }
+
+  .sidebar {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 16px;
+    box-shadow: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+    margin-top: 0;
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 64px);
+    padding: 16px;
+  }
+
+  .content-container {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .nav-tabs {
+    gap: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+  }
+
+  .tab-button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+/* Smartphones (até 480px) */
+@media (max-width: 480px) {
+  .app-header {
+    height: 56px;
+    padding: 0 12px;
+  }
+
+  .app-header h1 {
+    font-size: 16px;
+    letter-spacing: -0.3px;
+  }
+
+  .sidebar {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px;
+    margin-bottom: 8px;
+    box-shadow: none;
+    animation: none;
+  }
+
+  .sidebar h2 {
+    font-size: 12px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .main-content {
+    margin-left: 0;
+    margin-top: 0;
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - 56px);
+    padding: 12px;
+    overflow-y: auto;
+  }
+
+  .content-container {
+    padding: 12px;
+    border-radius: 8px;
+    min-height: auto;
+    box-shadow: none;
+    background-color: var(--white);
+  }
+
+  .nav-tabs {
+    gap: 6px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .tab-button {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .tab-button:disabled {
+    background-color: rgba(0, 82, 204, 0.08);
+  }
+}
+
+/* Ultra-small devices (até 360px) */
+@media (max-width: 360px) {
+  .app-header {
+    height: 52px;
+  }
+
+  .app-header h1 {
+    font-size: 14px;
+  }
+
+  .sidebar {
+    padding: 8px;
+  }
+
+  .main-content {
+    padding: 8px;
+    min-height: calc(100vh - 52px);
+  }
+
+  .content-container {
+    padding: 8px;
+  }
+
+  .nav-tabs {
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .tab-button {
+    padding: 4px 8px;
+    font-size: 11px;
   }
 }
