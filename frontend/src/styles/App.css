@@ -238,40 +238,42 @@ body {
     font-size: 18px;
   }
 
+  /* ← MUDANÇA CIRÚRGICA #1: Sidebar desaparece completamente */
   .sidebar {
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-    padding: 16px;
-    box-shadow: none;
+    display: none !important;
   }
 
+  /* ← Main content ocupa 100% - header - espaço para rodapé */
   .main-content {
     margin-left: 0;
-    margin-top: 0;
+    margin-top: 64px;
     width: 100%;
-    height: auto;
-    min-height: calc(100vh - 64px);
+    height: calc(100vh - 64px - 65px);
     padding: 16px;
-  }
-
-  .content-container {
-    padding: 16px;
-    border-radius: 8px;
+    overflow-y: auto;
+    padding-bottom: 65px;
   }
 
   .nav-tabs {
-    gap: 8px;
-    margin-bottom: 16px;
-    padding-bottom: 8px;
+    display: flex;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
+    justify-content: flex-start;
+    overflow-x: auto;
   }
 
   .tab-button {
     padding: 8px 16px;
     font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .content-container {
+    padding: 16px;
+    min-height: auto;
   }
 }
 
@@ -287,58 +289,46 @@ body {
     letter-spacing: -0.3px;
   }
 
+  /* ← MUDANÇA CIRÚRGICA #2: Sidebar desaparece completamente */
   .sidebar {
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-    padding: 12px;
-    margin-bottom: 8px;
-    box-shadow: none;
-    animation: none;
+    display: none !important;
   }
 
-  .sidebar h2 {
-    font-size: 12px;
-    margin-bottom: 12px;
-    font-weight: 600;
-  }
-
+  /* ← Main content ocupa 100% - header - espaço para rodapé */
   .main-content {
     margin-left: 0;
-    margin-top: 0;
+    margin-top: 56px;
     width: 100%;
-    height: auto;
-    min-height: calc(100vh - 56px);
+    height: calc(100vh - 56px - 60px);
     padding: 12px;
     overflow-y: auto;
-  }
-
-  .content-container {
-    padding: 12px;
-    border-radius: 8px;
-    min-height: auto;
-    box-shadow: none;
-    background-color: var(--white);
+    padding-bottom: 60px;
   }
 
   .nav-tabs {
-    gap: 6px;
-    margin-bottom: 12px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
+    justify-content: flex-start;
+    overflow-x: auto;
   }
 
   .tab-button {
     padding: 6px 12px;
     font-size: 12px;
-    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .tab-button:disabled {
     background-color: rgba(0, 82, 204, 0.08);
+  }
+
+  .content-container {
+    padding: 12px;
+    min-height: auto;
   }
 }
 
@@ -352,26 +342,38 @@ body {
     font-size: 14px;
   }
 
+  /* ← MUDANÇA CIRÚRGICA #3: Sidebar desaparece completamente */
   .sidebar {
-    padding: 8px;
+    display: none !important;
   }
 
+  /* ← Main content ocupa 100% - header - espaço para rodapé */
   .main-content {
+    margin-left: 0;
+    margin-top: 52px;
+    width: 100%;
+    height: calc(100vh - 52px - 56px);
     padding: 8px;
-    min-height: calc(100vh - 52px);
+    overflow-y: auto;
+    padding-bottom: 56px;
   }
 
   .content-container {
     padding: 8px;
+    min-height: auto;
   }
 
   .nav-tabs {
     gap: 4px;
-    margin-bottom: 8px;
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
   }
 
   .tab-button {
     padding: 4px 8px;
     font-size: 11px;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }
